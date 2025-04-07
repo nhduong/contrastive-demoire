@@ -17,7 +17,7 @@
     <sup>3</sup>Department of Computer Science and Artificial Intelligence, Dongguk University, South Korea
     <br>
     <br>
-    (submitted on March 2025)
+    (submitted in March 2025)
   </p>
 </p>
 
