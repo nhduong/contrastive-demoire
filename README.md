@@ -25,13 +25,13 @@
 
 # Qualitative Results
 <div style="display: flex; justify-content: center;">
-  <img src="./figs/aim.png" width="800">
+  <img src="./figs/aim.jpg" width="800">
 </div>
 
 <br> <br>
 
 <div style="display: flex; justify-content: center;">
-  <img src="./figs/tip.png" width="800">
+  <img src="./figs/tip.jpg" width="800">
 </div>
 
 <br>
