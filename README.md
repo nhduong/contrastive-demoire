@@ -25,7 +25,13 @@
 
 # Qualitative Results
 <div style="display: flex; justify-content: center;">
-  <img src="./figs/tip18_qual_comp.png" width="800">
+  <img src="./figs/aim.png" width="800">
+</div>
+
+<br> <br>
+
+<div style="display: flex; justify-content: center;">
+  <img src="./figs/tip.png" width="800">
 </div>
 
 <br>
