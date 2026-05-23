@@ -1,0 +1,21 @@
+compute_environment: LOCAL_MACHINE
+
+distributed_type: 'NO'
+num_processes: 1
+
+# for multi-GPU training, uncomment the following lines and comment out the above two lines
+# distributed_type: MULTI_GPU
+# num_processes: 2
+
+downcast_bf16: 'no'
+gpu_ids: all
+machine_rank: 0
+main_training_function: main
+mixed_precision: 'fp16' # 'no' for fp32, 'fp8', 'fp16', or 'bf16'
+num_machines: 1
+rdzv_backend: static
+same_network: true
+tpu_env: []
+tpu_use_cluster: false
+tpu_use_sudo: false
+use_cpu: false

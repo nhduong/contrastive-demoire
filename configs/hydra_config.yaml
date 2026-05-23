@@ -1,0 +1,110 @@
+seed: 123
+time_id: 0
+init_date: 0
+proc_id: 0
+app: ""
+gpu: -1
+node: ""
+save_cp: true
+log_path: ""
+detect_anomaly: false
+
+models:
+  path: models.hiresdnet
+  main:
+    _target_: ${models.path}.demoireing_net
+    feat_num: 48
+    inter_feat_num: 32
+    shuffle_num: 4
+  init: true
+
+data:
+  name: "uhdm" # "uhdm", "aim", "tip18", "fhdmi"
+  path: "path_to_dataset" # e.g., "/home/username/data/UHDM_DATA"
+  moire_dir: "" # e.g., "moire" (relative to data.path)
+  clean_dir: "" # e.g., "clean" (relative to data.path)
+  train:
+    batch_size: 2
+    path: "train" # e.g., "train" (relative to data.path)
+    patch_size: 1536
+  val:
+    file: "" # path to a single image, e.g., "/home/username/image_moire.png"
+    batch_size: 1
+    path: "test" # e.g., "test" (relative to data.path)
+    patch_size: null # set a number for fast evaluation during training, for REAL evaluation, set to null
+
+exp:
+  name: ladybugs
+  note: dev
+  save_tests: "" # path to save test images
+  resume: "" # path to resume training
+  evaluate: false
+  evaluate_epochs: []
+  evaluate_wait_for_epochs: true
+  calc_mets: true
+  calc_train_mets: true
+  dont_calc_mets_at_all: false
+  train_only: false
+  calc_flops: false
+  fast_psnr: false # for fast PSNR calculation during training, set to "true". Otherwise, set to "false" for evaluation
+
+opt:
+  alg:
+    _target_: torch.optim.Adam
+  T_0: 50 # The total epochs for learning cycles
+  T_mult: 1
+  eta_min: 0.000001 # Learning rate in the end of each learning cycle. Will be adjusted automatically based on the number of GPUs!
+  lr: 0.0002 # Initial learning rate in each learning cycle. Will be adjusted automatically based on the number of GPUs!
+  beta1: 0.9
+  beta2: 0.999
+  workers: 4
+  epochs: 150
+  start_epoch: 0
+  forced_start_epoch: -1
+  capturable: false
+  grad_clip: -1
+
+losses:
+  l1:
+    use: true
+    weight: 1.0
+    log: false
+    func:
+      _target_: torch.nn.L1Loss
+  perceptual:
+    use: true
+    weight: 1.0
+    log: false
+    func:
+      _target_: utils.VGGPerceptualLoss
+  contrastive:
+    use: true
+    base: "l1"  # "l1" or "perceptual"
+    weight: 1.0
+    log: true
+  consistency:
+    l1_weight: 1.0
+    perceptual_weight: 0.0
+    log: false
+
+schedule:
+  cosine:
+    alg:
+      _target_: torch.optim.lr_scheduler.CosineAnnealingWarmRestarts
+  cycles: 8 # The number of learning cycles
+
+utils:
+  hf_accelerate: true
+  tb: true
+  print_freq: 1000
+  log2file: true
+  try_it: false
+  eval:
+    name: null
+
+hydra:
+  job:
+    chdir: true
+  run:
+    # NOTE: everything will be save here!!!
+    dir: ./outputs/${exp.name}/${data.name}/${now:%y.%m.%d}_${now:%H.%M.%S}__${exp.note}__GPU.${oc.env:CUDA_VISIBLE_DEVICES}__${oc.env:NODE_NAME}
