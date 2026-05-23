@@ -54,7 +54,7 @@ data/
 ├── aim2019_demoireing_track1
 │   ├── Training
 │   │   ├── clear
-│   │   │   └── ... (images files)
+│   │   │   └── ... (image files)
 │   │   └── moire
 │   │       └── ... (image files)
 │   └── Validation
