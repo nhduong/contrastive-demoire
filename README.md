@@ -81,9 +81,9 @@ data/
 │   │       └── ... (image files)
 │   └── trainData
 │       ├── source
-│       │   │── ... (image files)
+│       │   └── ... (image files)
 │       └── target
-│           │── ... (image files)
+│           └── ... (image files)
 └── UHDM_DATA
     ├── test
     │   ├── ..._gt.jpg
